@@ -1,5 +1,5 @@
-from USER_INTERFFACE import expected_value
-from USER_INTERFFACE import query_string
+from USER_INTERFFACE import expected_value_string
+from USER_INTERFFACE import query_string_value
 import pyodbc as pyodbc
 from DataTestSuite.Drivers.set_up import fixed_driver
 
@@ -22,7 +22,8 @@ def test_pilot_food_pricing(fixed_driver):
 def execute_query(fixed_driver):
     """The User Executes The Query"""
     global cursor
-    conx_string = pyodbc.connect("DRIVER={SQL Server};server=SCIFINSYS;database=sleepstudy;Trusted_Connection=yes;")
+    conx_string = pyodbc.connect(
+        "DRIVER={SQL Server};server=EC2AMAZ-O7K498H\SQLEXPRESS;database=sleepstudy;Trusted_Connection=yes;")
     cursor = conx_string.cursor()
 
 
@@ -31,13 +32,15 @@ def receive_result_set(fixed_driver):
     """The User Receives The Query Results"""
     global query_element
 
-    cursor.execute(query_string)
+    cursor.execute(query_string_value)
     query_result = cursor.fetchone()
     for query_element in query_result:
         print(query_element)
+
+
 @then("Confirm the Results Matches Expected Output", target_fixture="02_validate_data_test")
 def validate_result_set(fixed_driver):
     """The User Validates The Results Are As Expected"""
     print(query_element)
-    print(expected_value)
-    assert expected_value == query_element, "Both are Matching"
+    print(expected_value_string)
+    assert expected_value_string == query_element, "Both are Matching"

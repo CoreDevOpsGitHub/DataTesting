@@ -40,8 +40,8 @@ def fixed_driver():
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--log-level=3")
 
-        b = webdriver.Chrome("C:/Users/CoreDevOps/PycharmProjects/DataTesting/DataTestSuite/Drivers/chromedriver.exe", options=options)
-
+        b = webdriver.Chrome("C:/Users/Administrator/Documents/GitHub/DataTesting/DataTestSuite/Drivers/chromedriver.exe", options=options)
+        #C:\Users\Administrator\Documents\GitHub\DataTesting\DataTestSuite\Drivers\chromedriver.exe
         b.maximize_window()
 
     yield b
