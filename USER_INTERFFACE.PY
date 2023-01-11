@@ -44,18 +44,19 @@ class App(tk.Tk):
         self.output_label.grid(column=0, row=1, columnspan=3, **padding)
 
     def submit(self):
-        query_string_value = self.query_string.get()
-        expected_string_value = self.expected_value.get()
-        print(query_string_value)
-        print(expected_string_value)
-        return query_string_value, expected_string_value
+        self.query_string_value =self.query_string.get()
+        print(self.query_string_value)
+       # self.expected_string_value = self.expected_value.get()
+        return self.query_string.get()
+
+    #def results(self):
+     #   value="100"
+      #  return value
 
 
 if __name__ == "__main__":
     app = App()
     app.mainloop()
-    exec = app.submit()
-    print(exec)
 
 # query_string = "select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47'"
 # expected_value = 3
