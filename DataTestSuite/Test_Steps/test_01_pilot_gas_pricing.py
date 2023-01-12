@@ -1,3 +1,4 @@
+import USER_INTERFFACE
 from USER_INTERFFACE import *
 
 import pyodbc as pyodbc
@@ -26,6 +27,21 @@ def execute_query(fixed_driver):
     cursor = conx_string.cursor()
 
 
+@given('The Input Form is being open', target_fixture="01_validate_data_test")
+def input_form_is_being_open(fixed_driver):
+    """The Input Form is being open"""
+    app = USER_INTERFFACE.App()
+    app.mainloop()
+
+    print(app.query_string_value)
+    print(app.expected_value)
+    #app = USER_INTERFFACE.App()
+    #app.mainloop()
+    #print(USER_INTERFFACE.App().submit())
+    #print(USER_INTERFFACE.App().results())
+
+
+
 @given('The User Receives The Result Set', target_fixture="01_validate_data_test")
 def receive_result_set(fixed_driver):
     """The User Receives The Query Results"""
@@ -46,13 +62,12 @@ def receive_result_set(fixed_driver):
 def validate_result_set(fixed_driver):
     """The User Validates The Results Are As Expected"""
 
+    #query_string_value_1 = App().query_string_value
+    #print("Value" + query_string_value_1)
 
-    query_string_value_1 = App().submit()
-    print("Value" + query_string_value_1)
-
-    #def queryStringValue(self):
-     #   self.obj = App().query_string_value
-      #  return self.obj
+    # def queryStringValue(self):
+    #   self.obj = App().query_string_value
+    #  return self.obj
 
 # print(query_element)
 # print(expected_value_string)
