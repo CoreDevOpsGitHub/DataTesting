@@ -7,7 +7,7 @@ pytest-bdd generate ..\DataTestSuite\Features\01_log_into_website.feature
 
 #Run Test
 allure generate --clean ..\DataTestSuite\allure-report
-pytest -v -s --alluredir=..\DataTestSuite\allure-report ..\DataTestSuite\Test_Steps\test_01_pilot_gas_pricing.py
+pytest -v -s --alluredir=..\DataTestSuite\allure-report ..\DataTestSuite\Test_Steps\
 allure serve ..\DataTestSuite\allure-report
 
 

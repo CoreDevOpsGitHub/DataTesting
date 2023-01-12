@@ -14,61 +14,56 @@ from pytest_bdd import (
 
 
 @scenario('../Features/01_Pilot_Gas_Pricing.feature', 'Scenario to Validate the Data Test')
-def test_pilot_gasstation_pricing(fixed_driver):
+def test_pilot_gasstation_pricing():
     """The User Validates Pilot Pricing"""
 
 
-@given('The User Executes Query', target_fixture="01_validate_data_test")
-def execute_query(fixed_driver):
-    """The User Executes The Query"""
-    global cursor
-    conx_string = pyodbc.connect(
-        "DRIVER={SQL Server};server=EC2AMAZ-O7K498H\SQLEXPRESS;database=sleepstudy;Trusted_Connection=yes;")
-    cursor = conx_string.cursor()
 
+@given('The User Intake Form Is Opened', target_fixture="01_validate_data_test")
+def open_input_form():
+    """Open Input Form"""
 
-@given('The Input Form is being open', target_fixture="01_validate_data_test")
-def input_form_is_being_open(fixed_driver):
-    """The Input Form is being open"""
+    # Open Form To Extract Values
+    global app
     app = USER_INTERFFACE.App()
     app.mainloop()
 
-    print(app.query_string_value)
-    print(app.expected_value)
-    #app = USER_INTERFFACE.App()
-    #app.mainloop()
-    #print(USER_INTERFFACE.App().submit())
-    #print(USER_INTERFFACE.App().results())
+
+@when('The Form Information is Extracted', target_fixture='01_validate_data_test')
+def form_information_extracted():
+    global query_string
+    global expected_value
+
+    # Extract Query String
+    query_string = app.query_string_value
+
+    # Extract Expected Value
+    expected_value = app.expected_value
 
 
+@when('The User Executes Query', target_fixture="01_validate_data_test")
+def execute_query():
+    # Create Connection String
+    conx_string = pyodbc.connect(
+        "DRIVER={SQL Server};server=EC2AMAZ-O7K498H\SQLEXPRESS;database=sleepstudy;Trusted_Connection=yes;")
 
-@given('The User Receives The Result Set', target_fixture="01_validate_data_test")
-def receive_result_set(fixed_driver):
-    """The User Receives The Query Results"""
-    # global query_element
-    # exec = show_entry_fields()
-    # exec = show_entry_fields().expected_value_string
-    # print(exec)
-    # print(show_entry_fields())
+    # Create Cursor
+    cursor = conx_string.cursor()
 
+    # Execute Query
+    cursor.execute(query_string)
 
-# cursor.execute()
-# query_result = cursor.fetchone()
-# for query_element in query_result:
-#     print(query_element)
+    # Extract Results
+    global query_element
+    query_result = cursor.fetchone()
+    for query_element in query_result:
+        print(query_element)
 
 
 @then("Confirm the Results Matches Expected Output", target_fixture="01_validate_data_test")
-def validate_result_set(fixed_driver):
+def validate_result_set():
     """The User Validates The Results Are As Expected"""
 
-    #query_string_value_1 = App().query_string_value
-    #print("Value" + query_string_value_1)
 
-    # def queryStringValue(self):
-    #   self.obj = App().query_string_value
-    #  return self.obj
+    assert int(expected_value) == query_element, "Both are Matching"
 
-# print(query_element)
-# print(expected_value_string)
-# assert expected_value_string == query_element, "Both are Matching"
