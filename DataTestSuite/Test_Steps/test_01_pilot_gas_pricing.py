@@ -28,6 +28,7 @@ def open_input_form():
     app.mainloop()
 
 
+
 @when('The Form Information is Extracted', target_fixture='01_validate_data_test')
 def form_information_extracted():
     global query_string
@@ -39,7 +40,7 @@ def form_information_extracted():
     query_string = app.query_string_value
 
     # Extract Expected Value
-    expected_value = app.expected_value
+    expected_value = app.expected_string_value
 
     # Extract Data Base Value
     database_value = app.database_string_value

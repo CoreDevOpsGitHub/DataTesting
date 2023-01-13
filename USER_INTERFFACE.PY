@@ -1,13 +1,15 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter.messagebox import askokcancel, showinfo, WARNING
 
 from tkinter.scrolledtext import ScrolledText
+
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('DataBase Query and Expected value')
-        #Wioth x Height
+        # Wioth x Height
         self.geometry("800x400")
 
         # Variable Declaration
@@ -30,15 +32,14 @@ class App(tk.Tk):
         ttk.Label(self, text='Database Query:').grid(column=0, row=0, **padding)
 
         # Data Base Input Value
-        query_entry = ttk.Entry(self, textvariable=self.query_string, width =50)
-        #query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
+        query_entry = ttk.Entry(self, textvariable=self.query_string, width=50)
+        # query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
         query_entry.grid(column=1, row=0, **padding)
 
         # query_entry = ScrolledText(self,wrap=tk.WORD)
-        #self.query_entry = tk.Text(self, width=40, height=2, **padding)
-        #self.query_entry.grid(column=0, row=1)
+        # self.query_entry = tk.Text(self, width=40, height=2, **padding)
+        # self.query_entry.grid(column=0, row=1)
         query_entry.focus()
-
 
         # label
         ttk.Label(self, text='Expected Value Query:').grid(column=0, row=3, **padding)
@@ -66,13 +67,20 @@ class App(tk.Tk):
         server_entry.focus()
 
         # Button
-        submit_button = ttk.Button(self, text='Submit', command=self.submit)
-        #Button Location Configurations
+        submit_button = ttk.Button(self, text='Submit', command=lambda: [self.submit(), self.confirm()])
+        # Button Location Configurations
         submit_button.grid(column=0, row=6, **padding)
 
         # Output label
         # self.output_label = ttk.Label(self)
         # self.output_label.grid(column=0, row=1, columnspan=3, **padding)
+
+    def confirm(self):
+        showinfo(
+            title='Query Form Status',
+            message='The query data was successfully filled')
+        if tk.messagebox.OK:
+            self.destroy()
 
     def submit(self):
         # Extract Query String From Form When Selecting Submit
@@ -80,8 +88,8 @@ class App(tk.Tk):
         query_string_text = self.query_string_value
 
         # Extract Expected Value From Form When Selecting Submit
-        self.expected_value = self.expected_value.get()
-        expected_value_text = self.expected_value
+        self.expected_string_value = self.expected_value.get()
+        expected_value_text = self.expected_string_value
 
         # Extract Expected DataBase Name From Form When Selecting Submit
         self.database_string_value = self.database_string.get()
@@ -102,7 +110,6 @@ class App(tk.Tk):
         value = 100
         return value
 
-
 # if __name__ == "__main__":
 # app = App()
 # app.mainloop()
@@ -118,12 +125,10 @@ class App(tk.Tk):
 # self.expected_string_value = self.expected_value.get()
 # return query_string_text
 # self.query_string.get(), self.expected_value.get()
-    # def results(self):
-    #   value="100"
-    #  return value
-
+# def results(self):
+#   value="100"
+#  return value
 
 
 # query_string = "select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47'"
 # expected_value = 3
-
