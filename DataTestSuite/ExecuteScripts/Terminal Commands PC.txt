@@ -11,4 +11,8 @@ pytest -v -s --alluredir=..\DataTestSuite\allure-report ..\DataTestSuite\Test_St
 allure serve ..\DataTestSuite\allure-report
 
 
+# query_string = "select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47'"
+# expected_value = 3
+# database=sleepstudy
+#server=EC2AMAZ-O7K498H\SQLEXPRESS
 

@@ -1,45 +1,74 @@
 import tkinter as tk
 from tkinter import ttk
 
+from tkinter.scrolledtext import ScrolledText
 
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title('DataBase Query and Expected value')
-        self.geometry("300x100")
+        #Wioth x Height
+        self.geometry("800x400")
 
         # Variable Declaration
 
         self.query_string = tk.StringVar()
         self.expected_value = tk.StringVar()
+        self.database_string = tk.StringVar()
+        self.server_string = tk.StringVar()
 
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
+        self.columnconfigure(3, weight=1)
 
         self.create_widgets()
 
     def create_widgets(self):
-        padding = {'padx': 5, 'pady': 5}
+        padding = {'padx': 10, 'pady': 10}
         # label
         ttk.Label(self, text='Database Query:').grid(column=0, row=0, **padding)
 
-        # Data Base
-        query_entry = ttk.Entry(self, textvariable=self.query_string)
+        # Data Base Input Value
+        query_entry = ttk.Entry(self, textvariable=self.query_string, width =50)
+        #query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
         query_entry.grid(column=1, row=0, **padding)
+
+        # query_entry = ScrolledText(self,wrap=tk.WORD)
+        #self.query_entry = tk.Text(self, width=40, height=2, **padding)
+        #self.query_entry.grid(column=0, row=1)
         query_entry.focus()
 
-        # label
-        ttk.Label(self, text='Expected Value Query:').grid(column=0, row=1, **padding)
 
-        # Expected value
+        # label
+        ttk.Label(self, text='Expected Value Query:').grid(column=0, row=3, **padding)
+
+        # Expected value Input Value
         expected_value_entry = ttk.Entry(self, textvariable=self.expected_value)
-        expected_value_entry.grid(column=1, row=1, **padding)
+        expected_value_entry.grid(column=1, row=3, **padding)
         expected_value_entry.focus()
+
+        # label
+        ttk.Label(self, text='Database Name:').grid(column=0, row=4, **padding)
+
+        # Data Base Name Input Value
+        database_entry = ttk.Entry(self, textvariable=self.database_string)
+        database_entry.grid(column=1, row=4, **padding)
+        database_entry.focus()
+
+        # label
+        ttk.Label(self, text='Server Name:').grid(column=0, row=5, **padding)
+
+        # ServerName (Receiving Input Value)
+        server_entry = ttk.Entry(self, textvariable=self.server_string)
+        # ServerName (Location Configurations)
+        server_entry.grid(column=1, row=5, **padding)
+        server_entry.focus()
 
         # Button
         submit_button = ttk.Button(self, text='Submit', command=self.submit)
-        submit_button.grid(column=2, row=0, **padding)
+        #Button Location Configurations
+        submit_button.grid(column=0, row=6, **padding)
 
         # Output label
         # self.output_label = ttk.Label(self)
@@ -54,7 +83,15 @@ class App(tk.Tk):
         self.expected_value = self.expected_value.get()
         expected_value_text = self.expected_value
 
-        return query_string_text, expected_value_text
+        # Extract Expected DataBase Name From Form When Selecting Submit
+        self.database_string_value = self.database_string.get()
+        database_value_text = self.database_string_value
+
+        # Extract Expected Server Name From Form When Selecting Submit
+        self.server_string_value = self.server_string.get()
+        server_value_text = self.server_string_value
+
+        return query_string_text, expected_value_text, database_value_text, server_value_text
         # print(query_string_text)
         # print(self.query_string_value)
         # self.expected_string_value = self.expected_value.get()
