@@ -16,7 +16,7 @@ from pytest_bdd import (
 def test_pilot_food_pricing():
     "The User Validates Pilot Food Pricing"
 
-@given('The User Intake Form Is Opened', target_fixture="01_validate_data_test")
+@given('The User Intake Form Is Opened', target_fixture="02_validate_data_test")
 def open_input_form():
     """Open Input Form"""
 
@@ -26,10 +26,12 @@ def open_input_form():
     app.mainloop()
 
 
-@when('The Form Information is Extracted', target_fixture='01_validate_data_test')
+@when('The Form Information is Extracted', target_fixture='02_validate_data_test')
 def form_information_extracted():
     global query_string
     global expected_value
+    global database_value
+    global server_value
 
     # Extract Query String
     query_string = app.query_string_value
@@ -37,12 +39,21 @@ def form_information_extracted():
     # Extract Expected Value
     expected_value = app.expected_value
 
+    # Extract Data Base Value
+    database_value = app.database_string_value
 
-@when('The User Executes Query', target_fixture="01_validate_data_test")
+    # Extract Server Value
+    server_value = app.server_string_value
+
+
+@when('The User Executes Query', target_fixture="02_validate_data_test")
 def execute_query():
     # Create Connection String
     conx_string = pyodbc.connect(
-        "DRIVER={SQL Server};server=EC2AMAZ-O7K498H\SQLEXPRESS;database=sleepstudy;Trusted_Connection=yes;")
+        "DRIVER={SQL Server};server=%s;database=%s;Trusted_Connection=yes;" % (server_value, database_value))
+
+    #conx_string = pyodbc.connect(
+     #   "DRIVER={SQL Server};server=EC2AMAZ-O7K498H\SQLEXPRESS;database=sleepstudy;Trusted_Connection=yes;")
 
     # Create Cursor
     cursor = conx_string.cursor()
@@ -57,7 +68,7 @@ def execute_query():
         print(query_element)
 
 
-@then("Confirm the Results Matches Expected Output", target_fixture="01_validate_data_test")
+@then("Confirm the Results Matches Expected Output", target_fixture="02_validate_data_test")
 def validate_result_set():
     """The User Validates The Results Are As Expected"""
 

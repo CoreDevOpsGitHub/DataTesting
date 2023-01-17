@@ -28,7 +28,6 @@ def open_input_form():
     app.mainloop()
 
 
-
 @when('The Form Information is Extracted', target_fixture='01_validate_data_test')
 def form_information_extracted():
     global query_string

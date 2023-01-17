@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from tkinter.messagebox import askokcancel, showinfo, WARNING
-
-from tkinter.scrolledtext import ScrolledText
+from tkinter import messagebox
 
 
 class App(tk.Tk):
@@ -10,7 +8,7 @@ class App(tk.Tk):
         super().__init__()
         self.title('DataBase Query and Expected value')
         # Wioth x Height
-        self.geometry("800x400")
+        self.geometry("700x400")
 
         # Variable Declaration
 
@@ -32,9 +30,9 @@ class App(tk.Tk):
         ttk.Label(self, text='Database Query:').grid(column=0, row=0, **padding)
 
         # Data Base Input Value
-        query_entry = ttk.Entry(self, textvariable=self.query_string, width=50)
+        query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
         # query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
-        query_entry.grid(column=1, row=0, **padding)
+        query_entry.grid(column=0, row=1, **padding)
 
         # query_entry = ScrolledText(self,wrap=tk.WORD)
         # self.query_entry = tk.Text(self, width=40, height=2, **padding)
@@ -42,45 +40,54 @@ class App(tk.Tk):
         query_entry.focus()
 
         # label
-        ttk.Label(self, text='Expected Value Query:').grid(column=0, row=3, **padding)
+        ttk.Label(self, text='Expected Value Query:').grid(column=0, row=2, **padding)
 
         # Expected value Input Value
-        expected_value_entry = ttk.Entry(self, textvariable=self.expected_value)
-        expected_value_entry.grid(column=1, row=3, **padding)
+        expected_value_entry = ttk.Entry(self, textvariable=self.expected_value, width=5)
+        expected_value_entry.grid(column=0, row=3, **padding)
         expected_value_entry.focus()
 
         # label
         ttk.Label(self, text='Database Name:').grid(column=0, row=4, **padding)
 
         # Data Base Name Input Value
-        database_entry = ttk.Entry(self, textvariable=self.database_string)
-        database_entry.grid(column=1, row=4, **padding)
+        database_entry = ttk.Entry(self, textvariable=self.database_string, width=13)
+        database_entry.grid(column=0, row=5, **padding)
         database_entry.focus()
 
         # label
-        ttk.Label(self, text='Server Name:').grid(column=0, row=5, **padding)
+        ttk.Label(self, text='Server Name:').grid(column=0, row=6, **padding)
 
         # ServerName (Receiving Input Value)
-        server_entry = ttk.Entry(self, textvariable=self.server_string)
+        server_entry = ttk.Entry(self, textvariable=self.server_string, width=35)
         # ServerName (Location Configurations)
-        server_entry.grid(column=1, row=5, **padding)
+        server_entry.grid(column=0, row=7, **padding)
         server_entry.focus()
 
         # Button
-        submit_button = ttk.Button(self, text='Submit', command=lambda: [self.submit(), self.confirm()])
+        submit_button = ttk.Button(self, text='Submit', command=lambda: [self.confirm(), self.submit()])
         # Button Location Configurations
-        submit_button.grid(column=0, row=6, **padding)
+        submit_button.grid(column=0, row=8, **padding)
 
         # Output label
         # self.output_label = ttk.Label(self)
         # self.output_label.grid(column=0, row=1, columnspan=3, **padding)
 
     def confirm(self):
-        showinfo(
-            title='Query Form Status',
-            message='The query data was successfully filled')
-        if tk.messagebox.OK:
+        msg_box = tk.messagebox.askquestion('Query Form Status',
+                                            'Are you sure you want to submit these values Received',
+                                            icon='warning')
+        if msg_box == 'yes':
             self.destroy()
+        else:
+            tk.messagebox.showinfo('Return', 'You will now return to the application screen')
+
+    # def confirm(self):
+    #   showinfo(
+    #       title='Query Form Status',
+    #      message='User Input Values Received')
+    #  if tk.messagebox.OK:
+    #     self.destroy()
 
     def submit(self):
         # Extract Query String From Form When Selecting Submit
