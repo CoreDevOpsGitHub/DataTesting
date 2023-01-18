@@ -8,7 +8,7 @@ class App(tk.Tk):
         super().__init__()
         self.title('DataBase Query and Expected value')
         # Wioth x Height
-        self.geometry("700x400")
+        self.geometry("850x250")
 
         # Variable Declaration
 
@@ -31,32 +31,23 @@ class App(tk.Tk):
 
         # Data Base Input Value
         # Dropdown menu options
-        def display_selection(self):
-            # Get the selected value.
-            self.query_string = combo.get()
-
-        combo = ttk.Combobox(
-            state="readonly",
-            values=["'select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47''", "Option2", "Option3", "Option4"]
-        )
-        combo.place(x=350, y=10, width=300)
-        #button = ttk.Button(text="Display selection", command=display_selection)
-        #button.place(x=50, y=100)
-        #query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
-        # query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
-        #query_entry.grid(column=0, row=1, **padding)
-
-        # query_entry = ScrolledText(self,wrap=tk.WORD)
-        # self.query_entry = tk.Text(self, width=40, height=2, **padding)
-        # self.query_entry.grid(column=0, row=1)
-        #query_entry.focus()
+        query_values = [
+            "select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47'",
+            "Option2",
+            "Option3",
+            "Option4"]
+        combo = ttk.Combobox(self, textvariable=self.query_string)
+        combo.set("Pick an Option")
+        combo['values'] = query_values
+        combo['state'] = 'readonly'
+        combo.place(x=180, y=10, width=650)
 
         # label
         ttk.Label(self, text='Expected Value Query:').grid(column=0, row=3, **padding)
 
         # Expected value Input Value
         expected_value_entry = ttk.Entry(self, textvariable=self.expected_value, width=5)
-        expected_value_entry.grid(column=0, row=4, **padding)
+        expected_value_entry.grid(column=1, row=3, **padding)
         expected_value_entry.focus()
 
         # label
@@ -64,26 +55,23 @@ class App(tk.Tk):
 
         # Data Base Name Input Value
         database_entry = ttk.Entry(self, textvariable=self.database_string, width=13)
-        database_entry.grid(column=0, row=6, **padding)
+        database_entry.grid(column=1, row=5, **padding)
         database_entry.focus()
 
         # label
-        ttk.Label(self, text='Server Name:').grid(column=0, row=7, **padding)
+        ttk.Label(self, text='Server Name:').grid(column=0, row=6, **padding)
 
         # ServerName (Receiving Input Value)
         server_entry = ttk.Entry(self, textvariable=self.server_string, width=35)
         # ServerName (Location Configurations)
-        server_entry.grid(column=0, row=8, **padding)
+        server_entry.grid(column=1, row=6, **padding)
         server_entry.focus()
 
         # Button
         submit_button = ttk.Button(self, text='Submit', command=lambda: [self.confirm(), self.submit()])
         # Button Location Configurations
-        submit_button.grid(column=0, row=9, **padding)
+        submit_button.grid(column=1, row=7, **padding)
 
-        # Output label
-        # self.output_label = ttk.Label(self)
-        # self.output_label.grid(column=0, row=1, columnspan=3, **padding)
 
     def confirm(self):
         msg_box = tk.messagebox.askquestion('Query Form Status',
@@ -94,17 +82,11 @@ class App(tk.Tk):
         else:
             tk.messagebox.showinfo('Return', 'You will now return to the application screen')
 
-    # def confirm(self):
-    #   showinfo(
-    #       title='Query Form Status',
-    #      message='User Input Values Received')
-    #  if tk.messagebox.OK:
-    #     self.destroy()
-
     def submit(self):
         # Extract Query String From Form When Selecting Submit
         self.query_string_value = self.query_string.get()
         query_string_text = self.query_string_value
+        print(query_string_text)
 
         # Extract Expected Value From Form When Selecting Submit
         self.expected_string_value = self.expected_value.get()
@@ -119,15 +101,8 @@ class App(tk.Tk):
         server_value_text = self.server_string_value
 
         return query_string_text, expected_value_text, database_value_text, server_value_text
-        # print(query_string_text)
-        # print(self.query_string_value)
-        # self.expected_string_value = self.expected_value.get()
-        # return query_string_text
-        # self.query_string.get(), self.expected_value.get()
 
-    def results(self):
-        value = 100
-        return value
+
 
 # if __name__ == "__main__":
 # app = App()
@@ -144,9 +119,21 @@ class App(tk.Tk):
 # self.expected_string_value = self.expected_value.get()
 # return query_string_text
 # self.query_string.get(), self.expected_value.get()
-# def results(self):
-#   value="100"
-#  return value
+
+ # query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
+ # query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
+ # query_entry.grid(column=0, row=1, **padding)
+
+ # query_entry = ScrolledText(self,wrap=tk.WORD)
+ # self.query_entry = tk.Text(self, width=40, height=2, **padding)
+ # self.query_entry.grid(column=0, row=1)
+ # query_entry.focus()
+
+# print(query_string_text)
+# print(self.query_string_value)
+# self.expected_string_value = self.expected_value.get()
+# return query_string_text
+# self.query_string.get(), self.expected_value.get()
 
 
 # query_string = "select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47'"
