@@ -29,18 +29,10 @@ class App(tk.Tk):
         # label
         ttk.Label(self, text='Database Query:').grid(column=0, row=0, **padding)
 
-        # Data Base Input Value
-        # Dropdown menu options
-        query_values = [
-            "select count from [3_patient_summary_frequent_events] where patient_ecd_str =  940034766 and icd_major =  'G47'",
-            "Option2",
-            "Option3",
-            "Option4"]
-        combo = ttk.Combobox(self, textvariable=self.query_string)
-        combo.set("Pick an Option")
-        combo['values'] = query_values
-        combo['state'] = 'readonly'
-        combo.place(x=180, y=10, width=650)
+        # Data Base Query Input Value
+        query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
+        query_entry.grid(column=1, row=0, **padding)
+        query_entry.focus()
 
         # label
         ttk.Label(self, text='Expected Value Query:').grid(column=0, row=3, **padding)
@@ -53,19 +45,32 @@ class App(tk.Tk):
         # label
         ttk.Label(self, text='Database Name:').grid(column=0, row=5, **padding)
 
-        # Data Base Name Input Value
-        database_entry = ttk.Entry(self, textvariable=self.database_string, width=13)
-        database_entry.grid(column=1, row=5, **padding)
-        database_entry.focus()
+        # Data Base Name Dropdown Value
+        database_values = [
+            "sleepstudy",
+            "Example1",
+            "Example2",
+            "Example3"]
+        combo = ttk.Combobox(self, textvariable=self.database_string)
+        combo.set("Pick an Data Base name")
+        combo['values'] = database_values
+        combo['state'] = 'readonly'
+        combo.place(x=400, y=90, width=200)
 
         # label
         ttk.Label(self, text='Server Name:').grid(column=0, row=6, **padding)
 
-        # ServerName (Receiving Input Value)
-        server_entry = ttk.Entry(self, textvariable=self.server_string, width=35)
-        # ServerName (Location Configurations)
-        server_entry.grid(column=1, row=6, **padding)
-        server_entry.focus()
+        # Server Name Dropdown Value
+        server_values = [
+            "EC2AMAZ-O7K498H\SQLEXPRESS",
+            "Example1",
+            "Example2",
+            "Example3"]
+        combo = ttk.Combobox(self, textvariable=self.server_string)
+        combo.set("Pick a Server Option")
+        combo['values'] = server_values
+        combo['state'] = 'readonly'
+        combo.place(x=400, y=130, width=200)
 
         # Button
         submit_button = ttk.Button(self, text='Submit', command=lambda: [self.confirm(), self.submit()])
@@ -123,6 +128,10 @@ class App(tk.Tk):
  # query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
  # query_entry.place(width=150, height=150,relx = 0.4, rely = 0.05)
  # query_entry.grid(column=0, row=1, **padding)
+
+ #database_entry = ttk.Entry(self, textvariable=self.database_string, width=13)
+ #database_entry.grid(column=1, row=5, **padding)
+ #database_entry.focus()
 
  # query_entry = ScrolledText(self,wrap=tk.WORD)
  # self.query_entry = tk.Text(self, width=40, height=2, **padding)
