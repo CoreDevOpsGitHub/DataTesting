@@ -8,6 +8,8 @@ class App(tk.Tk):
         super().__init__()
         # Box Title
         self.title('DataBase Query and Expected value')
+        self.text_box = tk.Text()
+
 
         # Width x Height
         self.geometry("850x250")
@@ -21,7 +23,7 @@ class App(tk.Tk):
 
         # Variable Configurations
         self.columnconfigure(0, weight=1)
-        self.columnconfigure(1, weight=1)
+        #self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
 
@@ -39,15 +41,22 @@ class App(tk.Tk):
         ###################################
 
         # label
-        ttk.Label(self, text='Database Query:').grid(column=0, row=0, **padding)
+        ttk.Label(self, text='Database Query:').grid(column=0, row=0,  **padding)
 
         # Creating Variable For "Database Query" String Received From User Input Form
-        query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
+        #query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
+        self.text_box.grid(row=0, column=1, sticky="nsew", columnspan=2)
+        self.grid_rowconfigure(0, weight=5)
+        self.grid_columnconfigure(1, weight=5)
+
+
+
+
 
         # Apply Spacing Functions
-        query_entry.grid(column=1, row=0, **padding)
+        #query_entry.grid(column=1, row=0, **padding)
 
-        query_entry.focus()
+        #query_entry.focus()
 
         ###################################
         # Expected Value
@@ -60,7 +69,7 @@ class App(tk.Tk):
         expected_value_entry = ttk.Entry(self, textvariable=self.expected_value, width=5)
 
         # Apply Spacing Functions
-        expected_value_entry.grid(column=1, row=3, **padding)
+        expected_value_entry.grid(column=1, row=3, **padding, columnspan=2)
 
         expected_value_entry.focus()
 
@@ -91,7 +100,7 @@ class App(tk.Tk):
         Database_Combo_Variable['state'] = 'readonly'
 
         # Set Location
-        Database_Combo_Variable.place(x=400, y=90, width=200)
+        Database_Combo_Variable.place(x=400, y=140, width=200)
 
         ###################################
         # Server Name
@@ -120,7 +129,7 @@ class App(tk.Tk):
         combo['state'] = 'readonly'
 
         # Set Location
-        combo.place(x=400, y=130, width=200)
+        combo.place(x=400, y=175, width=200)
 
         ###################################
         # Button
@@ -143,7 +152,7 @@ class App(tk.Tk):
                                             , icon='warning')
 
         # If User Has Selected Yes, Continue Submit Function
-        if msg_box == 'Yes':
+        if msg_box == 'yes':
             self.destroy()
 
         # If User Has Selected No, Return User to Original Form
