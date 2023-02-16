@@ -16,14 +16,13 @@ class App(tk.Tk):
 
         # Variable Declaration
 
-        self.query_string = tk.StringVar()
         self.expected_value = tk.StringVar()
         self.database_string = tk.StringVar()
         self.server_string = tk.StringVar()
 
         # Variable Configurations
         self.columnconfigure(0, weight=1)
-        #self.columnconfigure(1, weight=1)
+        self.columnconfigure(1, weight=1)
         self.columnconfigure(2, weight=1)
         self.columnconfigure(3, weight=1)
 
@@ -43,14 +42,12 @@ class App(tk.Tk):
         # label
         ttk.Label(self, text='Database Query:').grid(column=0, row=0,  **padding)
 
-        # Creating Variable For "Database Query" String Received From User Input Form
+        # Creating "Database Query" Text Box Received From User Input Form
         #query_entry = ttk.Entry(self, textvariable=self.query_string, width=120)
-        self.text_box.grid(row=0, column=1, sticky="nsew", columnspan=2)
+        self.text_box.grid(row=0, column=1, pady=10, padx=10)
+        self.text_box.place(x=350, y=15, width=400, height=60)
         self.grid_rowconfigure(0, weight=5)
         self.grid_columnconfigure(1, weight=5)
-
-
-
 
 
         # Apply Spacing Functions
@@ -136,7 +133,7 @@ class App(tk.Tk):
         ###################################
 
         # Button
-        submit_button = ttk.Button(self, text='Submit', command=lambda: [self.confirm(), self.submit()])
+        submit_button = ttk.Button(self, text='Submit', command=lambda: [self.confirm(),self.submit()])
 
         # Button Location Configurations
         submit_button.grid(column=1, row=7, **padding)
@@ -153,11 +150,13 @@ class App(tk.Tk):
 
         # If User Has Selected Yes, Continue Submit Function
         if msg_box == 'yes':
-            self.destroy()
+            self.quit()
 
         # If User Has Selected No, Return User to Original Form
         else:
             tk.messagebox.showinfo('Return', 'You will now return to the application screen')
+
+
 
 
     #######################
@@ -166,8 +165,8 @@ class App(tk.Tk):
 
     def submit(self):
 
-        # Extract Query String From Form When Selecting Submit
-        self.query_string_value = self.query_string.get()
+        # Extract Query String From Text Box When Selecting Submit
+        self.query_string_value = self.text_box.get('1.0', 'end')
         query_string_text = self.query_string_value
         print(query_string_text)
 
